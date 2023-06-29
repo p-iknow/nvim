@@ -35,7 +35,6 @@ Plug("kana/vim-textobj-line")
 Plug("michaeljsmith/vim-indent-object")
 Plug("vim-scripts/ReplaceWithRegister")
 Plug("wellle/targets.vim")
-Plug('machakann/vim-highlightedyank')
 vim.call("plug#end")
 
 --- Plugins: Packer
@@ -102,13 +101,13 @@ require('lualine').setup {
 	extensions = {}
 }
 --https://github.com/ggandor/lightspeed.nvim/issues/76#issuecomment-1137568236
-vim.cmd("hi LightspeedCursor gui=reverse")
+--vim.cmd("hi LightspeedCursor gui=reverse")
 
 -- Yank Hightlight
 vim.cmd [[
 	augroup highlight_yank
 	autocmd!
-	autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup="IncSearch", timeout=200 }
+	autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup="IncSearch", timeout=100 }
 	augroup END
 ]]
 
