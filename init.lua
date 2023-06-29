@@ -1,6 +1,4 @@
 --- Options
-
---- Options
 vim.opt.number               = true
 vim.opt.relativenumber       = true
 vim.opt.tabstop              = 3
@@ -26,12 +24,20 @@ vim.cmd("set clipboard=unnamedplus")
 --- Plugins: VimPlug
 local Plug = vim.fn['plug#']
 vim.call("plug#begin")
+-- https://github.com/tpope/vim-repeat
 Plug("tpope/vim-repeat")
+-- https://github.com/sheerun/vim-polyglot language pack
 Plug("sheerun/vim-polyglot")
+-- https://devhints.io/vim-easyalign
 Plug("junegunn/vim-easy-align")
+-- https://github.com/kana/vim-textobj-user
 Plug("kana/vim-textobj-user")
+-- https://github.com/kana/vim-textobj-entire
+-- vae vie
 Plug("kana/vim-textobj-entire")
+-- https://github.com/kana/vim-textobj-line/blob/master/doc/textobj-line.txt
 Plug("kana/vim-textobj-line")
+-- https://github.com/michaeljsmith/vim-indent-object
 Plug("michaeljsmith/vim-indent-object")
 Plug("vim-scripts/ReplaceWithRegister")
 Plug("wellle/targets.vim")
@@ -44,7 +50,9 @@ require("packer").startup(function(use)
 	use "sainnhe/everforest"
 	use "sainnhe/edge"
 	use "sainnhe/gruvbox-material"
+	-- https://github.com/jacoborus/tender.vim
 	use "jacoborus/tender.vim"
+	-- https://github.com/farmergreg/vim-lastplace
 	use "farmergreg/vim-lastplace"
 	use "ap/vim-css-color"
 	use 'ggandor/lightspeed.nvim'
@@ -101,7 +109,7 @@ require('lualine').setup {
 	extensions = {}
 }
 --https://github.com/ggandor/lightspeed.nvim/issues/76#issuecomment-1137568236
---vim.cmd("hi LightspeedCursor gui=reverse")
+vim.cmd("hi LightspeedCursor gui=reverse")
 
 -- Yank Hightlight
 vim.cmd [[
@@ -364,9 +372,6 @@ local move_cursor_to_end_of_yanked_text = "y`]"
 vim.keymap.set("v", "y", move_cursor_to_end_of_yanked_text)
 local move_cursor_to_end_of_pasted_text = "p`]"
 vim.keymap.set("n", "p", move_cursor_to_end_of_pasted_text)
--- select All
-local select_all = "ggVG"
-vim.keymap.set("n", "gA", select_all)
 
 local switch_case_stays_in_place = "~h"
 vim.keymap.set("n", "~", switch_case_stays_in_place)
