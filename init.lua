@@ -37,6 +37,8 @@ Plug("kana/vim-textobj-user")
 Plug("kana/vim-textobj-entire")
 -- https://github.com/kana/vim-textobj-line/blob/master/doc/textobj-line.txt
 Plug("kana/vim-textobj-line")
+Plug("vim-textobj-function")
+Plug("vim-textobj-function")
 -- https://github.com/michaeljsmith/vim-indent-object
 Plug("michaeljsmith/vim-indent-object")
 Plug("vim-scripts/ReplaceWithRegister")
@@ -46,20 +48,9 @@ vim.call("plug#end")
 --- Plugins: Packer
 require("packer").startup(function(use)
 	use "wbthomason/packer.nvim"
-	use "savq/melange"
-	use "sainnhe/everforest"
-	use "sainnhe/edge"
-	use "sainnhe/gruvbox-material"
-	-- https://github.com/jacoborus/tender.vim
-	use "jacoborus/tender.vim"
-	-- https://github.com/farmergreg/vim-lastplace
 	use "farmergreg/vim-lastplace"
 	use "ap/vim-css-color"
 	use 'ggandor/lightspeed.nvim'
-	use {
-		"nvim-lualine/lualine.nvim",
-		requires = { "kyazdani42/nvim-web-devicons", opt = true }
-	}
 	use({
 		"kylechui/nvim-surround",
 		tag = "*",
@@ -68,46 +59,6 @@ require("packer").startup(function(use)
 		end
 	})
 end)
-require('lualine').setup {
-	options = {
-		icons_enabled = true,
-		theme = 'auto',
-		component_separators = { left = '', right = '' },
-		section_separators = { left = '', right = '' },
-		disabled_filetypes = {
-			statusline = {},
-			winbar = {},
-		},
-		ignore_focus = {},
-		always_divide_middle = true,
-		globalstatus = false,
-		refresh = {
-			statusline = 1000,
-			tabline = 1000,
-			winbar = 1000,
-		}
-	},
-	sections = {
-		lualine_a = { 'mode' },
-		lualine_b = { 'branch', 'diff', 'diagnostics' },
-		lualine_c = { 'filename' },
-		lualine_x = { 'encoding', 'fileformat', 'filetype' },
-		lualine_y = { 'progress' },
-		lualine_z = { 'location' }
-	},
-	inactive_sections = {
-		lualine_a = {},
-		lualine_b = {},
-		lualine_c = { 'filename' },
-		lualine_x = { 'location' },
-		lualine_y = {},
-		lualine_z = {}
-	},
-	tabline = {},
-	winbar = {},
-	inactive_winbar = {},
-	extensions = {}
-}
 --https://github.com/ggandor/lightspeed.nvim/issues/76#issuecomment-1137568236
 vim.cmd("hi LightspeedCursor gui=reverse")
 
@@ -320,21 +271,6 @@ local function block_text_object_extra_diffline_operator()
 end
 vim.keymap.set("o", "aM", block_text_object_extra_diffline_operator)
 
-local percent_sign_text_object_self_visual = "T%ot%"
-vim.keymap.set("v", "i%", percent_sign_text_object_self_visual)
-
-local percent_sign_text_object_extra_visual = "F%of%"
-vim.keymap.set("v", "a%", percent_sign_text_object_extra_visual)
-
-local function percent_sign_text_object_self_operator()
-	vim.cmd("normal vT%ot%")
-end
-vim.keymap.set("o", "i%", percent_sign_text_object_self_operator)
-
-local function percent_sign_text_object_extra_operator()
-	vim.cmd("normal vF%of%")
-end
-vim.keymap.set("o", "a%", percent_sign_text_object_extra_operator)
 
 local markdown_heading_text_object_self_sameline_visual = "?^#<cr>oNk"
 vim.keymap.set("v", "ir", markdown_heading_text_object_self_sameline_visual)
@@ -415,7 +351,7 @@ local insert_blank_line_up_insert = "<C-o>O"
 vim.keymap.set("i", "<C-k>", insert_blank_line_up_insert)
 
 local insert_blank_line_down_insert = "<C-o>o"
--- vim.keymap.set("i", "<C-j>", insert_blank_line_down_insert)
+vim.keymap.set("i", "<C-j>", insert_blank_line_down_insert)
 
 local previous_blank_line_operator = "V{"
 vim.keymap.set("o", "{", previous_blank_line_operator)
@@ -595,23 +531,9 @@ vim.keymap.set("n", "r", substitute_letter)
 local repeat_replace_goes_next = "n&"
 vim.keymap.set("n", "&", repeat_replace_goes_next)
 
-local execute_normal_command = "<esc>:'<,'>norm "
-
-local repeat_replace_goes_next = "n&"
-vim.keymap.set("n", "&", repeat_replace_goes_next)
-
 local captal_R_records_macro = 'q'
 vim.keymap.set("", "R", captal_R_records_macro)
 
-local sneak_s = "<Plug>Sneak_s"
-vim.keymap.set("n", "q", sneak_s)
-vim.keymap.set("x", "q", sneak_s)
-vim.keymap.set("o", "q", sneak_s)
-
-local sneak_S = "<Plug>Sneak_S"
-vim.keymap.set("n", "Q", sneak_S)
-vim.keymap.set("x", "Q", sneak_S)
-vim.keymap.set("o", "Q", sneak_S)
 
 local inclusive_next_blankie = "}k"
 vim.keymap.set("n", "<leader>}", inclusive_next_blankie)
@@ -633,4 +555,21 @@ vim.keymap.set("n", "gK", dig_into_docs)
 local copy_current_character = 'yl'
 vim.keymap.set("n", "X", copy_current_character)
 
+-- 잘 사용하지 않고 용처를 모르는 내용들
+-- 잘 사용하지 않는 sign(%) obperator
+local percent_sign_text_object_self_visual = "T%ot%"
+vim.keymap.set("v", "i%", percent_sign_text_object_self_visual)
+
+local percent_sign_text_object_extra_visual = "F%of%"
+vim.keymap.set("v", "a%", percent_sign_text_object_extra_visual)
+
+local function percent_sign_text_object_self_operator()
+	vim.cmd("normal vT%ot%")
+end
+vim.keymap.set("o", "i%", percent_sign_text_object_self_operator)
+
+local function percent_sign_text_object_extra_operator()
+	vim.cmd("normal vF%of%")
+end
+vim.keymap.set("o", "a%", percent_sign_text_object_extra_operator)
 print("nvim loaded")
