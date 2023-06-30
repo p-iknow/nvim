@@ -10,12 +10,11 @@ vim.opt.ignorecase           = true
 vim.opt.smartcase            = true
 vim.opt.hlsearch             = true
 vim.opt.colorcolumn          = ""
-vim.g.mapleader              = ","
+vim.g.mapleader              = "<Space>"
 vim.g.rust_recommended_style = false
 vim.opt.syntax               = "enable"
 vim.opt.termguicolors        = true
 vim.opt.background           = "dark"
-vim.g.camelcasemotion_key    = "<leader>"
 vim.g.targets_nl             = "nh"
 vim.cmd("set clipboard=unnamedplus")
 
@@ -37,8 +36,6 @@ Plug("kana/vim-textobj-user")
 Plug("kana/vim-textobj-entire")
 -- https://github.com/kana/vim-textobj-line/blob/master/doc/textobj-line.txt
 Plug("kana/vim-textobj-line")
-Plug("vim-textobj-function")
-Plug("vim-textobj-function")
 -- https://github.com/michaeljsmith/vim-indent-object
 Plug("michaeljsmith/vim-indent-object")
 Plug("vim-scripts/ReplaceWithRegister")
@@ -327,14 +324,9 @@ vim.keymap.set("n", "yP", copy_line_backward)
 local join_lines_no_space = "j0d^kgJ"
 vim.keymap.set("n", "gJ", join_lines_no_space)
 
-local space_action = ""
-vim.keymap.set("n", "<Space>", space_action)
 
 local backspace_action = ""
 vim.keymap.set("n", "<BS>", backspace_action)
-
-local disable_u_visual = "<Esc>u"
-vim.keymap.set("v", "u", disable_u_visual)
 
 local function multiply_visual()
 	FeedKeysInt("ygv<Esc>" .. vim.v.count1 .. "p")
@@ -359,12 +351,6 @@ vim.keymap.set("o", "{", previous_blank_line_operator)
 local next_blank_line_operator = "V}"
 vim.keymap.set("o", "}", next_blank_line_operator)
 
-local twenty_lines_down = "20jzz"
-vim.keymap.set("", "<C-f>", twenty_lines_down)
-
-local twenty_lines_up = "20kzz"
-vim.keymap.set("", "<C-b>", twenty_lines_up)
-
 local twelve_lines_down = "12jzz"
 vim.keymap.set("", "<C-d>", twelve_lines_down)
 
@@ -372,50 +358,22 @@ local twelve_lines_up = "12kzz"
 vim.keymap.set("", "<C-u>", twelve_lines_up)
 
 local insert_blank_line_up = "O<Esc>"
-vim.keymap.set("n", "<C-k>", insert_blank_line_up)
+vim.keymap.set("n", "<C-K>", insert_blank_line_up)
 
 local insert_blank_line_down = "o<Esc>"
-vim.keymap.set("n", "<C-j>", insert_blank_line_down)
+vim.keymap.set("n", "<C-J>", insert_blank_line_down)
 
 local function remove_highlighting() vim.cmd("noh") end
-
 local function remove_highlighting__escape()
 	remove_highlighting()
 	FeedKeysInt("<Esc>")
 end
 vim.keymap.set("n", "<Esc>", remove_highlighting__escape)
 
-local function toggle_highlight_search() vim.cmd("set hlsearch!") end
 
 local function multiply() FeedKeysInt("yl" .. vim.v.count1 .. "p") end
 vim.keymap.set("n", "<leader>q", multiply)
 
-local vore_out_line_into_block = '"_ddddpvaB<Esc>'
-vim.keymap.set("n", "<leader>di", vore_out_line_into_block)
-
-local convert_to_arrow_function = 'vaBo<Esc>"_s=> <Esc>Jj"_dd'
-vim.keymap.set("n", "<leader>da", convert_to_arrow_function)
-
-local convert_to_normal_function = '^f(%f="_c3l{<cr><Esc>o}<Esc>'
-vim.keymap.set("n", "<leader>dn", convert_to_normal_function)
-
-local function add_character_at_the_end_of_line()
-	local char = GetChar("Press a character:")
-	if not char then return end
-	FeedKeys("m" .. THROWAWAY_MARK .. "A" .. char)
-	FeedKeysInt("<Esc>")
-	FeedKeys("`" .. THROWAWAY_MARK)
-end
-vim.keymap.set("n", "<leader>;", add_character_at_the_end_of_line)
-
-local function add_character_at_the_start_of_line()
-	local char = GetChar("Press a character:")
-	if not char then return end
-	FeedKeys("m" .. THROWAWAY_MARK .. "I" .. char)
-	FeedKeysInt("<Esc>")
-	FeedKeys("`" .. THROWAWAY_MARK)
-end
-vim.keymap.set("n", "<leader>:", add_character_at_the_start_of_line)
 
 local system_clipboard_register = '"+'
 vim.keymap.set("", "'q", system_clipboard_register)
@@ -441,14 +399,6 @@ vim.keymap.set("!", "<C-r>;", paste_command_register)
 local paste_default_register = '<C-r><C-p>"'
 vim.keymap.set("!", "<C-b>", paste_default_register)
 
-local delete_line_but_take_inside_line = 'dil\'_dd'
-vim.keymap.set("n", "<leader>dl", delete_line_but_take_inside_line, { remap = true })
-
-local move_line_to_top = 'ddm' .. THROWAWAY_MARK .. 'ggP`' .. THROWAWAY_MARK
-vim.keymap.set("", "<leader>do", move_line_to_top)
-
-local move_line_to_bottom = 'ddm' .. THROWAWAY_MARK .. 'Gp`' .. THROWAWAY_MARK
-vim.keymap.set("", "<leader>db", move_line_to_bottom)
 
 function Search_for_selection(search_operator)
 	FeedKeys('y')
