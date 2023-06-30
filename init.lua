@@ -10,14 +10,13 @@ vim.opt.ignorecase           = true
 vim.opt.smartcase            = true
 vim.opt.hlsearch             = true
 vim.opt.colorcolumn          = ""
-vim.g.mapleader              = "<Space>"
+vim.g.mapleader              = ","
 vim.g.rust_recommended_style = false
 vim.opt.syntax               = "enable"
 vim.opt.termguicolors        = true
 vim.opt.background           = "dark"
 vim.g.targets_nl             = "nh"
 vim.cmd("set clipboard=unnamedplus")
-
 
 
 --- Plugins: VimPlug
@@ -45,19 +44,75 @@ vim.call("plug#end")
 --- Plugins: Packer
 require("packer").startup(function(use)
 	use "wbthomason/packer.nvim"
-	use "farmergreg/vim-lastplace"
+	use "savq/melange"
+	use "sainnhe/everforest"
+	use "sainnhe/edge"
+	use "sainnhe/gruvbox-material"
+	use "jacoborus/tender.vim"
 	use "ap/vim-css-color"
+	use "farmergreg/vim-lastplace"
 	use 'ggandor/lightspeed.nvim'
 	use({
 		"kylechui/nvim-surround",
-		tag = "*",
+		tag = "*", -- Use for stability; omit to use `main` branch for the latest features
 		config = function()
-			require("nvim-surround").setup()
+			require("nvim-surround").setup({
+				-- Configuration here, or leave empty to use defaults
+			})
 		end
 	})
+	use {
+		"nvim-lualine/lualine.nvim",
+		requires = { "kyazdani42/nvim-web-devicons", opt = true }
+	}
 end)
+
+require('lualine').setup {
+	options = {
+		icons_enabled = true,
+		theme = 'auto',
+
+		component_separators = { left = '', right = '' },
+		section_separators = { left = '', right = '' },
+		disabled_filetypes = {
+			statusline = {},
+			winbar = {},
+		},
+		ignore_focus = {},
+		always_divide_middle = true,
+		globalstatus = false,
+		refresh = {
+			statusline = 1000,
+			tabline = 1000,
+			winbar = 1000,
+		}
+	},
+	sections = {
+		lualine_a = { 'mode' },
+		lualine_b = { 'branch', 'diff', 'diagnostics' },
+		lualine_c = { 'filename' },
+		lualine_x = { 'encoding', 'fileformat', 'filetype' },
+		lualine_y = { 'progress' },
+		lualine_z = { 'location' }
+	},
+	inactive_sections = {
+		lualine_a = {},
+		lualine_b = {},
+		lualine_c = { 'filename' },
+		lualine_x = { 'location' },
+		lualine_y = {},
+		lualine_z = {}
+	},
+	tabline = {},
+	winbar = {},
+	inactive_winbar = {},
+	extensions = {}
+}
 --https://github.com/ggandor/lightspeed.nvim/issues/76#issuecomment-1137568236
 vim.cmd("hi LightspeedCursor gui=reverse")
+
+
+
 
 -- Yank Hightlight
 vim.cmd [[
@@ -228,6 +283,9 @@ else
 
 	local move_to_top_screen__center_screen = 'Hzz'
 	vim.keymap.set("", "H", move_to_top_screen__center_screen)
+
+	local function save_vim() vim.cmd("w") end
+	vim.keymap.set("", "U", save_vim)
 end
 
 local easyAlignMapping = "<Plug>(EasyAlign)"
@@ -269,18 +327,6 @@ end
 vim.keymap.set("o", "aM", block_text_object_extra_diffline_operator)
 
 
-local markdown_heading_text_object_self_sameline_visual = "?^#<cr>oNk"
-vim.keymap.set("v", "ir", markdown_heading_text_object_self_sameline_visual)
-
-local markdown_heading_text_object_self_diffline_visual = "?^#<cr>koNk"
-vim.keymap.set("v", "iR", markdown_heading_text_object_self_diffline_visual)
-
-local comment_text_object_self_visual = "[/3lo]/2h"
-vim.keymap.set("v", "igc", comment_text_object_self_visual)
-
-local comment_text_object_extra_visual = "[/o]/V"
-vim.keymap.set("v", "agc", comment_text_object_extra_visual)
-
 local function comment_text_object_extra_operator()
 	vim.cmd("normal v[/o]/V")
 end
@@ -297,12 +343,22 @@ vim.keymap.set("", "_", goto_end_of_prev_line)
 local goto_middle_of_line = "gM"
 vim.keymap.set("", "gm", goto_middle_of_line)
 
+
+-- 새로운 라인을 만들기
+local make_new_line_under = "m`o<Esc>``"
+vim.keymap.set("n", "oo", make_new_line_under)
+
+local make_new_line_upper = "m`O<Esc>``"
+vim.keymap.set("n", "OO", make_new_line_upper)
+
 -- 복사, 붙여넣기 이후에 커서가 붙여넣은 텍스트의 끝으로 이동하기 위함
 -- https://stackoverflow.com/questions/3806629/yank-a-region-in-vim-without-the-cursor-moving-to-the-top-of-the-block
 local capital_yank_doesnt_consume_newline = "yg_"
 vim.keymap.set("n", "Y", capital_yank_doesnt_consume_newline)
+
 local move_cursor_to_end_of_yanked_text = "y`]"
 vim.keymap.set("v", "y", move_cursor_to_end_of_yanked_text)
+
 local move_cursor_to_end_of_pasted_text = "p`]"
 vim.keymap.set("n", "p", move_cursor_to_end_of_pasted_text)
 
@@ -324,9 +380,12 @@ vim.keymap.set("n", "yP", copy_line_backward)
 local join_lines_no_space = "j0d^kgJ"
 vim.keymap.set("n", "gJ", join_lines_no_space)
 
-
 local backspace_action = ""
 vim.keymap.set("n", "<BS>", backspace_action)
+
+local space_action = ""
+vim.keymap.set("n", "<Space>", space_action)
+
 
 local function multiply_visual()
 	FeedKeysInt("ygv<Esc>" .. vim.v.count1 .. "p")
