@@ -34,10 +34,22 @@ Plug("kana/vim-textobj-user")
 -- vae vie
 Plug("kana/vim-textobj-entire")
 -- https://github.com/kana/vim-textobj-line/blob/master/doc/textobj-line.txt
+-- val vil
 Plug("kana/vim-textobj-line")
+--https://github.com/inside/vim-textobj-jsxattr
+-- vix vax tag attriubez
+Plug 'inside/vim-textobj-jsxattr'
+--https://github.com/beloglazov/vim-textobj-punctuation
+-- viu vau select to punctuation
+Plug 'beloglazov/vim-textobj-punctuation'
+--https://github.com/vimtaku/vim-textobj-keyvalue/blob/master/doc/textobj-key-value.txt
+-- vik vaK viv viV select to key value
+Plug 'vimtaku/vim-textobj-keyvalue'
 -- https://github.com/michaeljsmith/vim-indent-object
 Plug("michaeljsmith/vim-indent-object")
 Plug("vim-scripts/ReplaceWithRegister")
+--https://github.com/wellle/targets.vim
+-- 학습 필요
 Plug("wellle/targets.vim")
 vim.call("plug#end")
 
@@ -258,8 +270,11 @@ if vim.g.vscode then
 	end
 	vim.keymap.set("v", ">", indent_vis)
 
-	local function comment() vim.fn.VSCodeNotify("editor.action.commentLine") end
-	vim.keymap.set("n", "gcc", comment)
+	local function comment()
+		vim.fn.VSCodeNotify("editor.action.commentLine")
+	end
+
+	vim.keymap.set("n", "gc", comment)
 	local function comment_vis()
 		vim.fn.VSCodeNotifyVisual("editor.action.commentLine", false)
 	end
@@ -345,10 +360,10 @@ vim.keymap.set("", "gm", goto_middle_of_line)
 
 
 -- 새로운 라인을 만들기
-local make_new_line_under = "m`o<Esc>``"
+local make_new_line_under = "o<Esc>"
 vim.keymap.set("n", "oo", make_new_line_under)
 
-local make_new_line_upper = "m`O<Esc>``"
+local make_new_line_upper = "O<Esc>"
 vim.keymap.set("n", "OO", make_new_line_upper)
 
 -- 복사, 붙여넣기 이후에 커서가 붙여넣은 텍스트의 끝으로 이동하기 위함
