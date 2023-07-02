@@ -279,6 +279,11 @@ if vim.g.vscode then
 		vim.fn.VSCodeNotifyVisual("editor.action.commentLine", false)
 	end
 	vim.keymap.set("v", "gc", comment_vis)
+
+	local function start_code_chat()
+		vim.fn.VSCodeNotifyVisual("interactiveEditor.start", true)
+	end
+	vim.keymap.set("v", "<D-i>", start_code_chat)
 else
 	local function closeEditor()
 		vim.cmd("x")
