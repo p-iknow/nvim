@@ -134,19 +134,20 @@ vim.cmd [[
 	augroup END
 ]]
 
--- Mark fix
-for c = string.byte("a"), string.byte("z") do
-	local char = string.char(c)
-	local upper_char = string.upper(char)
-	vim.keymap.set("n", "m" .. char, "m" .. upper_char)
-	vim.keymap.set("n", "`" .. char, "`" .. upper_char)
-	vim.keymap.set("n", "<leader>m" .. char, "m" .. char)
-end
 
--- Own constants
+-- don't redraw while executing macros (good performance config)
+vim.opt.lazyredraw = true
+vim.opt.redrawtime = 200
 
-local THROWAWAY_REGISTER = 'o'
-local THROWAWAY_MARK = 'I'
+-- mark fix
+--for c = string.byte("a"), string.byte("z") do
+--	local char = string.char(c)
+--	local upper_char = string.upper(char)
+--	vim.keymap.set("n", "m" .. char, "m" .. upper_char)
+--	vim.keymap.set("n", "`" .. char, "`" .. upper_char)
+--	vim.keymap.set("n", "<leader>m" .. char, "m" .. char)
+--end
+
 
 -- Own functions
 
@@ -217,7 +218,32 @@ end
 
 -- Own Vscode vim setting
 if vim.g.vscode then
-	local function center_screen() vim.cmd("call <SNR>4_reveal('center', 0)") end
+	-- visual mode mapping to replace selected text
+	vim.keymap.set('', 'gs', 'y:%s/\\<<c-r>"\\>//g', { noremap = true, })
+
+	-- non-interactively delete all occurrences of selected text
+	vim.keymap.set('v', 'gd', 'y:%s/\\<<c-r>"\\>//g<cr>', { noremap = true, silent = true })
+
+	-- make navigation more intuitive
+	vim.keymap.set('n', 'k', '(v:count == 0 ? "gk" : "k")', { expr = true })
+	vim.keymap.set('n', 'j', '(v:count == 0 ? "gj" : "j")', { expr = true })
+	vim.keymap.set('n', '^', '(v:count == 0 ? "g^" : "^")', { expr = true })
+
+	-- keep selection
+	vim.keymap.set('', '<', '<gv', {})
+	vim.keymap.set('', '>', '>gv', {})
+
+	-- don't copy single letter deletes
+	vim.keymap.set('n', 'x', '"_x', { noremap = true })
+
+	-- keep register on paste
+	vim.keymap.set('', 'p', '"_dp', { noremap = true })
+	vim.keymap.set('', 'p', '"_dp', { noremap = true })
+
+
+	local function center_screen()
+		vim.cmd("call <SNR>4_reveal('center', 0)")
+	end
 	local function move_to_top_screen()
 		vim.cmd("call <SNR>4_moveCursor('top')")
 	end
@@ -279,7 +305,7 @@ if vim.g.vscode then
 		vim.fn.VSCodeNotifyVisual("editor.action.commentLine", false)
 	end
 	vim.keymap.set("v", "gc", comment_vis)
-
+	-- copliot chat
 	local function start_code_chat()
 		vim.fn.VSCodeNotifyVisual("interactiveEditor.start", true)
 	end
@@ -357,7 +383,9 @@ local function comment_text_object_self_operator()
 end
 vim.keymap.set("o", "igc", comment_text_object_self_operator)
 
-local function goto_end_of_prev_line() FeedKeysInt(vim.v.count1 .. "k$") end
+local function goto_end_of_prev_line()
+	FeedKeysInt(vim.v.count1 .. "k$")
+end
 vim.keymap.set("", "_", goto_end_of_prev_line)
 
 local goto_middle_of_line = "gM"
@@ -442,7 +470,9 @@ vim.keymap.set("n", "<C-K>", insert_blank_line_up)
 local insert_blank_line_down = "o<Esc>"
 vim.keymap.set("n", "<C-J>", insert_blank_line_down)
 
-local function remove_highlighting() vim.cmd("noh") end
+local function remove_highlighting()
+	vim.cmd("noh")
+end
 local function remove_highlighting__escape()
 	remove_highlighting()
 	FeedKeysInt("<Esc>")
@@ -450,7 +480,9 @@ end
 vim.keymap.set("n", "<Esc>", remove_highlighting__escape)
 
 
-local function multiply() FeedKeysInt("yl" .. vim.v.count1 .. "p") end
+local function multiply()
+	FeedKeysInt("yl" .. vim.v.count1 .. "p")
+end
 vim.keymap.set("n", "<leader>q", multiply)
 
 
@@ -485,9 +517,11 @@ function Search_for_selection(search_operator)
 		local escaped_selection = EscapeForLiteralSearch(vim.fn.getreg('"'))
 		FeedKeys(search_operator .. '\\V' .. escaped_selection)
 		FeedKeysInt('<cr>')
+		FeedKeys('N')
 	end)
 end
 
+-- CMD + D
 vim.keymap.set("v", "*", "<cmd>lua Search_for_selection('/')<cr>")
 vim.keymap.set("v", "#", "<cmd>lua Search_for_selection('?')<cr>")
 
