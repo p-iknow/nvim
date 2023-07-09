@@ -218,6 +218,17 @@ end
 
 -- Own Vscode vim setting
 if vim.g.vscode then
+	-- copliot chat
+	local function start_code_chat()
+		vim.fn.VSCodeNotifyVisual("interactiveEditor.start", true)
+	end
+	vim.keymap.set("v", "<D-i>", start_code_chat)
+	-- refactor
+	local function refactor()
+		vim.fn.VSCodeNotifyVisual("interactiveEditor.start", true)
+	end
+	vim.keymap.set("v", "<D-S-r>", refactor)
+
 	-- visual mode mapping to replace selected text
 	vim.keymap.set('', 'gs', 'y:%s/\\<<c-r>"\\>//g', { noremap = true, })
 
@@ -235,11 +246,6 @@ if vim.g.vscode then
 
 	-- don't copy single letter deletes
 	vim.keymap.set('n', 'x', '"_x', { noremap = true })
-
-	-- keep register on paste
-	vim.keymap.set('', 'p', '"_dp', { noremap = true })
-	vim.keymap.set('', 'p', '"_dp', { noremap = true })
-
 
 	local function center_screen()
 		vim.cmd("call <SNR>4_reveal('center', 0)")
@@ -305,11 +311,6 @@ if vim.g.vscode then
 		vim.fn.VSCodeNotifyVisual("editor.action.commentLine", false)
 	end
 	vim.keymap.set("v", "gc", comment_vis)
-	-- copliot chat
-	local function start_code_chat()
-		vim.fn.VSCodeNotifyVisual("interactiveEditor.start", true)
-	end
-	vim.keymap.set("v", "<D-i>", start_code_chat)
 else
 	local function closeEditor()
 		vim.cmd("x")
