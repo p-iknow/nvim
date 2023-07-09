@@ -220,12 +220,12 @@ end
 if vim.g.vscode then
 	-- copliot chat
 	local function start_code_chat()
-		vim.fn.VSCodeNotifyVisual("interactiveEditor.start", true)
+		vim.fn.VSCodeNotifyVisual("inlineChat.start", true)
 	end
 	vim.keymap.set("v", "<D-i>", start_code_chat)
 	-- refactor
 	local function refactor()
-		vim.fn.VSCodeNotifyVisual("interactiveEditor.start", true)
+		vim.fn.VSCodeNotifyVisual("editor.action.refactor", true)
 	end
 	vim.keymap.set("v", "<D-S-r>", refactor)
 
