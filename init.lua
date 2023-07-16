@@ -26,8 +26,6 @@ vim.call("plug#begin")
 Plug("tpope/vim-repeat")
 -- https://github.com/sheerun/vim-polyglot language pack
 Plug("sheerun/vim-polyglot")
--- https://devhints.io/vim-easyalign
-Plug("junegunn/vim-easy-align")
 -- https://github.com/kana/vim-textobj-user
 Plug("kana/vim-textobj-user")
 -- https://github.com/kana/vim-textobj-entire
@@ -133,11 +131,6 @@ vim.cmd [[
 	autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup="IncSearch", timeout=100 }
 	augroup END
 ]]
-
-
--- don't redraw while executing macros (good performance config)
-vim.opt.lazyredraw = true
-vim.opt.redrawtime = 200
 
 -- mark fix
 --for c = string.byte("a"), string.byte("z") do
@@ -343,6 +336,7 @@ if vim.g.vscode then
 		vim.fn.VSCodeNotify("editor.action.rename")
 	end
 	vim.keymap.set("n", "<leader>r", rename_symbol)
+
 	local function outdent()
 		---@diagnostic disable-next-line: unused-local
 		for i = 1, vim.v.count1 do
@@ -404,12 +398,6 @@ else
 	local function save_vim() vim.cmd("w") end
 	vim.keymap.set("", "U", save_vim)
 end
-
-local easyAlignMapping = "<Plug>(EasyAlign)"
-vim.keymap.set("", "ga", easyAlignMapping)
-
-local replaceWithRegisterMapping = "<Plug>ReplaceWithRegisterLine"
-vim.keymap.set("n", "grr", replaceWithRegisterMapping)
 
 local block_text_object_self_sameline = "aBV"
 vim.keymap.set("v", "im", block_text_object_self_sameline)
