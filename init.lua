@@ -284,7 +284,7 @@ if vim.g.vscode then
 	vim.keymap.set("v", "<D-i>", start_code_chat)
 	-- visual mode mapping to register paste
 
-	vim.keymap.set('v', 'p', '"_dp', { noremap = true, silent = true })
+	vim.keymap.set('v', 'p', '"_dP', { noremap = true, silent = true })
 	vim.keymap.set('v', 'P', '"_dP', { noremap = true, silent = true })
 	-- refactor
 	local function refactor()
@@ -293,7 +293,7 @@ if vim.g.vscode then
 	vim.keymap.set("v", "<D-S-r>", refactor)
 
 	-- visual mode mapping to replace selected text
-	vim.keymap.set('', 'gs', 'y:%s/\\<<c-r>"\\>//g', { noremap = true, })
+	vim.keymap.set('', 'gs', 'y:%s/\\<<c-r>"\\>/<c-r>"/g', { noremap = true, })
 
 	-- non-interactively delete all occurrences of selected text
 	vim.keymap.set('v', 'gd', 'y:%s/\\<<c-r>"\\>//g<cr>', { noremap = true, silent = true })
