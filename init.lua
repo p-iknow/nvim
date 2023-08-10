@@ -271,9 +271,6 @@ end
 -- Own Vscode vim setting
 if vim.g.vscode then
 	-- copliot chat
-	local function start_code_chat()
-		vim.fn.VSCodeNotifyVisual("inlineChat.start", true)
-	end
 	-- move line
 	vim.keymap.set('v', '<a-up>', function() MoveVisualSelection('Up') end, { noremap = true })
 	vim.keymap.set('v', '<a-down>', function() MoveVisualSelection('Down') end, { noremap = true })
@@ -281,16 +278,11 @@ if vim.g.vscode then
 	vim.keymap.set('v', 'J', function() MoveVisualSelection('Up') end, { noremap = true })
 	vim.keymap.set('v', 'K', function() MoveVisualSelection('Down') end, { noremap = true })
 
-	vim.keymap.set("v", "<D-i>", start_code_chat)
 	-- visual mode mapping to register paste
 
 	vim.keymap.set('v', 'p', '"_dP', { noremap = true, silent = true })
 	vim.keymap.set('v', 'P', '"_dP', { noremap = true, silent = true })
 	-- refactor
-	local function refactor()
-		vim.fn.VSCodeNotifyVisual("editor.action.refactor", true)
-	end
-	vim.keymap.set("v", "<D-S-r>", refactor)
 
 	-- visual mode mapping to replace selected text
 	vim.keymap.set('', 'gs', 'y:%s/\\<<c-r>"\\>/<c-r>"/g', { noremap = true, })
@@ -357,12 +349,12 @@ if vim.g.vscode then
 	end
 	vim.keymap.set("n", "==", reindent)
 	local function outdent_vis()
-		vim.fn.VSCodeNotifyVisual("editor.action.outdentLines", false)
+		vim.fn.VSCodeNotify("editor.action.outdentLines", false)
 	end
 	vim.keymap.set("v", "<", outdent_vis)
 
 	local function indent_vis()
-		vim.fn.VSCodeNotifyVisual("editor.action.indentLines", false)
+		vim.fn.VSCodeNotify("editor.action.indentLines", false)
 	end
 	vim.keymap.set("v", ">", indent_vis)
 
@@ -372,7 +364,7 @@ if vim.g.vscode then
 
 	vim.keymap.set("n", "gc", comment)
 	local function comment_vis()
-		vim.fn.VSCodeNotifyVisual("editor.action.commentLine", false)
+		vim.fn.VSCodeNotify("editor.action.commentLine", false)
 	end
 	vim.keymap.set("v", "gc", comment_vis)
 else
