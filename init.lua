@@ -1,3 +1,10 @@
+-- init
+-- cd ~/.config/nvim : nvim 폴더 이동
+-- vi : vim을 open
+-- :PlugInstall  Vimplug 패키지관리 메니저로 설정한 플러그인 설치 .vimrc 또는 init.vim에 지정된 모든 플러그인들을 설치합니다.
+-- :PackerInstall  Packer 패키지 관리 메니저로 설정한 플러그인 설치 .vimrc 또는 init.vim에 지정된 모든 플러그인들을 설치합니다.
+
+
 require('p-iknow.base')
 require('p-iknow.plugins')
 require('p-iknow.highlights')
