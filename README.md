@@ -1,6 +1,7 @@
 ## Neovim Install 
 - [neovim 설치](https://github.com/neovim/neovim/wiki/Installing-Neovim#homebrew-on-macos-or-linux) 
 - [neovim vscode extension 설치](https://github.com/vscode-neovim/vscode-neovim)
+- ^ 설치 https://github.com/vscode-neovim/vscode-neovim#-getting-started 가이드에 따라 vscode 설정 꼭 할 것 
 - `/Users/${userName}/.config/nvim` 에  `https://github.com/p-iknow/nvim`(neovim 세팅) clone 하기  
 
 
