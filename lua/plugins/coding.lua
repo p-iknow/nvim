@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-doc-name, inject-field
 return {
 	-- for vscode
 	-- motion plugin, lightspeed
@@ -33,6 +34,11 @@ return {
 				opts = {
 					system_clipboard = {
 						sync_with_ring = false,
+					},
+					highlight = {
+						on_put = true,
+						on_yank = true,
+						timer = 500,
 					},
 				},
 				-- https://github.com/gbprod/yanky.nvim#%EF%B8%8F-mappings
