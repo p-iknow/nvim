@@ -4,17 +4,17 @@
 local Util = require("lazyvim.util")
 
 local function map(mode, lhs, rhs, opts)
-	local keys = require("lazy.core.handler").handlers.keys
-	---@cast keys LazyKeysHandler
-	-- do not create the keymap if a lazy keys handler exists
-	if not keys.active[keys.parse({ lhs, mode = mode }).id] then
-		opts = opts or {}
-		opts.silent = opts.silent ~= false
-		if opts.remap and not vim.g.vscode then
-			opts.remap = nil
-		end
-		vim.keymap.set(mode, lhs, rhs, opts)
-	end
+  local keys = require("lazy.core.handler").handlers.keys
+  ---@cast keys LazyKeysHandler
+  -- do not create the keymap if a lazy keys handler exists
+  if not keys.active[keys.parse({ lhs, mode = mode }).id] then
+    opts = opts or {}
+    opts.silent = opts.silent ~= false
+    if opts.remap and not vim.g.vscode then
+      opts.remap = nil
+    end
+    vim.keymap.set(mode, lhs, rhs, opts)
+  end
 end
 
 -- map helpers
@@ -57,22 +57,22 @@ map("n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = true })
 
 -- buffers
 if Util.has("bufferline.nvim") then
-	map("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-	map("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
-	map("n", "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-	map("n", "]b", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+  map("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
+  map("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+  map("n", "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
+  map("n", "]b", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
 else
-	map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
-	map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
-	map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
-	map("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
+  map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
+  map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
+  map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
+  map("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
 end
 map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 
 -- highlights under cursor
 if vim.fn.has("nvim-0.9.0") == 1 then
-	map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
+  map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 end
 
 -- windows
@@ -93,52 +93,65 @@ map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 -- -- ------------------------- neovim specific config ----------------------------
 if not vim.g.vscode then
-	-- lazy
-	map("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
+  -- lazy
+  map("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
-	-- new file
-	map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
+  -- new file
+  map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
-	map("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
-	map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
+  map("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
+  map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
 
-	if not Util.has("trouble.nvim") then
-		map("n", "[q", vim.cmd.cprev, { desc = "Previous quickfix" })
-		map("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
-	end
+  if not Util.has("trouble.nvim") then
+    map("n", "[q", vim.cmd.cprev, { desc = "Previous quickfix" })
+    map("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
+  end
 
-	-- lazygit
-	map("n", "<leader>gg", function()
-		Util.float_term({ "lazygit" }, { cwd = Util.get_root(), esc_esc = false, ctrl_hjkl = false })
-	end, { desc = "Lazygit (root dir)" })
-	map("n", "<leader>gG", function()
-		Util.float_term({ "lazygit" }, { esc_esc = false, ctrl_hjkl = false })
-	end, { desc = "Lazygit (cwd)" })
+  -- lazygit
+  map("n", "<leader>gg", function()
+    Util.float_term({ "lazygit" }, { cwd = Util.get_root(), esc_esc = false, ctrl_hjkl = false })
+  end, { desc = "Lazygit (root dir)" })
+  map("n", "<leader>gG", function()
+    Util.float_term({ "lazygit" }, { esc_esc = false, ctrl_hjkl = false })
+  end, { desc = "Lazygit (cwd)" })
 
-	-- floating terminal
-	local lazyterm = function()
-		Util.float_term(nil, { cwd = Util.get_root() })
-	end
-	map("n", "<leader>ft", lazyterm, { desc = "Terminal (root dir)" })
-	map("n", "<leader>fT", function()
-		Util.float_term()
-	end, { desc = "Terminal (cwd)" })
-	map("n", "<c-/>", lazyterm, { desc = "Terminal (root dir)" })
-	map("n", "<c-_>", lazyterm, { desc = "which_key_ignore" })
+  -- floating terminal
+  local lazyterm = function()
+    Util.float_term(nil, { cwd = Util.get_root() })
+  end
+  map("n", "<leader>ft", lazyterm, { desc = "Terminal (root dir)" })
+  map("n", "<leader>fT", function()
+    Util.float_term()
+  end, { desc = "Terminal (cwd)" })
+  map("n", "<c-/>", lazyterm, { desc = "Terminal (root dir)" })
+  map("n", "<c-_>", lazyterm, { desc = "which_key_ignore" })
 
-	-- Terminal Mappings
-	map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
-	map("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
-	map("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
-	map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
-	map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
-	map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
-	map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
+  -- Terminal Mappings
+  map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+  map("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
+  map("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
+  map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
+  map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
+  map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+  map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
 
-	-- ------------------------- vscode specific config ----------------------------
+  -- ------------------------- vscode specific config ----------------------------
 else
-	nnoremap("gz", '<Cmd>call VSCodeCall("git.revertSelectedRanges")<CR>')
-	xnoremap("gz", '<Cmd>call VSCodeCall("git.revertSelectedRanges")<CR><ESC>')
-	noremap("\\", '<Cmd>call VSCodeNotify("vspacecode.space", 1)<CR>')
-	nnoremap("go", '<Cmd>call VSCodeNotify("workbench.action.quickOpen")<CR>')
+  -- 새로운 라인을 만들기
+  local make_new_line_under = "o<Esc>"
+  map("n", "oo", make_new_line_under)
+
+  local make_new_line_upper = "O<Esc>"
+  map("n", "OO", make_new_line_upper)
+
+  local twelve_lines_down = "13j"
+  vim.keymap.set("", "<C-d>", twelve_lines_down)
+
+  local twelve_lines_up = "13kzz"
+  vim.keymap.set("", "<C-u>", twelve_lines_up)
+
+  nnoremap("gz", '<Cmd>call VSCodeCall("git.revertSelectedRanges")<CR>')
+  xnoremap("gz", '<Cmd>call VSCodeCall("git.revertSelectedRanges")<CR><ESC>')
+  noremap("\\", '<Cmd>call VSCodeNotify("vspacecode.space", 1)<CR>')
+  nnoremap("go", '<Cmd>call VSCodeNotify("workbench.action.quickOpen")<CR>')
 end

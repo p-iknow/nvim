@@ -47,8 +47,6 @@ return {
 					{ mode = { "n", "x" }, "P",     "<Plug>(YankyPutBefore)" },
 					{ mode = { "n", "x" }, "gp",    "<Plug>(YankyGPutAfter)" },
 					{ mode = { "n", "x" }, "gP",    "<Plug>(YankyGPutBefore)" },
-					{ mode = "n",          "<c-n>", "<Plug>(YankyCycleForward)" },
-					{ mode = "n",          "<c-p>", "<Plug>(YankyCycleBackward)" },
 				},
 				vscode = true,
 			},
