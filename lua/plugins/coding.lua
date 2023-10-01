@@ -9,6 +9,7 @@ return {
 	{ "kylechui/nvim-surround",         config = true, vscode = true },
 
 	--  exchange/replace
+	{ "vim-scripts/ReplaceWithRegister" },
 	{
 		-- https://github.com/gbprod/substitute.nvim
 		"gbprod/substitute.nvim",
@@ -30,23 +31,27 @@ return {
 		},
 		dependencies = {
 			{
+				--
 				"gbprod/yanky.nvim",
 				opts = {
-					system_clipboard = {
-						sync_with_ring = false,
-					},
 					highlight = {
 						on_put = true,
 						on_yank = true,
 						timer = 500,
 					},
+					system_clipboard = {
+						sync_with_ring = false,
+					},
 				},
 				-- https://github.com/gbprod/yanky.nvim#%EF%B8%8F-mappings
 				keys = {
-					{ mode = { "n", "x" }, "p",     "<Plug>(YankyPutAfter)" },
-					{ mode = { "n", "x" }, "P",     "<Plug>(YankyPutBefore)" },
-					{ mode = { "n", "x" }, "gp",    "<Plug>(YankyGPutAfter)" },
-					{ mode = { "n", "x" }, "gP",    "<Plug>(YankyGPutBefore)" },
+					--  vscode에서 아래 yankyyank는 동작하지 않는다.
+					-- { mode = { "n", "x" }, "y",  "<plug>(yankyyank)" },
+					{ mode = { "n", "x" }, "p",  "<Plug>(YankyPutAfter)" },
+					{ mode = { "n", "x" }, "P",  "<Plug>(YankyPutBefore)" },
+					{ mode = { "n", "x" }, "gp", "<Plug>(YankyGPutAfter)" },
+					{ mode = { "n", "x" }, "gP", "<Plug>(YankyGPutBefore)" },
+
 				},
 				vscode = true,
 			},
@@ -56,7 +61,6 @@ return {
 	},
 
 	-- better text-objects
-	{ "PeterRincker/vim-argumentative", vscode = true }, -- <, shift argument, [, move argument, , - argument{
 	{
 		"kana/vim-textobj-user",
 		dependencies = {
