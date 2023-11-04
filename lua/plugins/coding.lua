@@ -23,7 +23,8 @@ return {
 			{ "gr",  "<cmd>lua require('substitute').operator()<cr>" },
 			{ "grr", "<cmd>lua require('substitute').line()<cr>" },
 			{ "gR",  "<cmd>lua require('substitute').eol()<cr>" },
-			{ "gr",  "<cmd>lua require('substitute').visual()<cr>",           mode = "x" },
+			-- visual mode일 때 p를 하면 지워진 텍스트가 다시 register에 들어가는 것 방지하기 위함
+			{ "p",   "<cmd>lua require('substitute').visual()<cr>",           mode = "x" },
 			{ "cx",  "<cmd>lua require('substitute.exchange').operator()<cr>" },
 			{ "cxx", "<cmd>lua require('substitute.exchange').line()<cr>" },
 			{ "X",   "<cmd>lua require('substitute.exchange').visual()<cr>",  mode = "x" },
@@ -37,7 +38,7 @@ return {
 					highlight = {
 						on_put = true,
 						on_yank = true,
-						timer = 500,
+						timer = 300,
 					},
 					system_clipboard = {
 						sync_with_ring = false,
@@ -47,10 +48,8 @@ return {
 				keys = {
 					--  vscode에서 아래 yankyyank는 동작하지 않는다.
 					-- { mode = { "n", "x" }, "y",  "<plug>(yankyyank)" },
-					{ mode = { "n", "x" }, "p",  "<Plug>(YankyPutAfter)" },
-					{ mode = { "n", "x" }, "P",  "<Plug>(YankyPutBefore)" },
-					{ mode = { "n", "x" }, "gp", "<Plug>(YankyGPutAfter)" },
-					{ mode = { "n", "x" }, "gP", "<Plug>(YankyGPutBefore)" },
+					{ mode = { "n" }, "p", "<Plug>(YankyPutAfter)" },
+					{ mode = { "n" }, "P", "<Plug>(YankyPutBefore)" },
 
 				},
 				vscode = true,
