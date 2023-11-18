@@ -1,62 +1,17 @@
 {
-  "ReplaceWithRegister": {
-    "branch": "master",
-    "commit": "832efc23111d19591d495dc72286de2fb0b09345"
-  },
-  "better-escape.nvim": {
-    "branch": "master",
-    "commit": "7031dc734add47bb71c010e0551829fa5799375f"
-  },
-  "lazy.nvim": {
-    "branch": "main",
-    "commit": "59335c5b9d116f5d3948f833288a89e2a829a005"
-  },
-  "mini.nvim": {
-    "branch": "main",
-    "commit": "1fdbb864e2015eb6f501394d593630f825154385"
-  },
-  "nvim-surround": {
-    "branch": "main",
-    "commit": "1c2ef599abeeb98e40706830bcd27e90e259367a"
-  },
-  "substitute.nvim": {
-    "branch": "main",
-    "commit": "89dbe55cccee36bcb5e2be8c2d92ff8716601734"
-  },
-  "vim-textobj-chunk": {
-    "branch": "master",
-    "commit": "c5b444671098c50abe875c6f00846d59a94b107d"
-  },
-  "vim-textobj-entire": {
-    "branch": "master",
-    "commit": "64a856c9dff3425ed8a863b9ec0a21dbaee6fb3a"
-  },
-  "vim-textobj-indent": {
-    "branch": "master",
-    "commit": "deb76867c302f933c8f21753806cbf2d8461b548"
-  },
-  "vim-textobj-jsxattr": {
-    "branch": "master",
-    "commit": "98a8f1953e95df339661d37ab95c2767eb785668"
-  },
-  "vim-textobj-line": {
-    "branch": "master",
-    "commit": "1a6780d29adcf7e464e8ddbcd0be0a9df1a37339"
-  },
-  "vim-textobj-user": {
-    "branch": "master",
-    "commit": "41a675ddbeefd6a93664a4dc52f302fe3086a933"
-  },
-  "vim-textobj-variable-segment": {
-    "branch": "main",
-    "commit": "51c323dca5c44f7a8e5a689b9156ef818d02188e"
-  },
-  "vim-unimpaired": {
-    "branch": "master",
-    "commit": "6d44a6dc2ec34607c41ec78acf81657248580bf1"
-  },
-  "yanky.nvim": {
-    "branch": "main",
-    "commit": "590a713b0372485f595eea36e7e3ab2069946794"
-  }
+  "ReplaceWithRegister": { "branch": "master", "commit": "832efc23111d19591d495dc72286de2fb0b09345" },
+  "better-escape.nvim": { "branch": "master", "commit": "7031dc734add47bb71c010e0551829fa5799375f" },
+  "lazy.nvim": { "branch": "main", "commit": "96584866b9c5e998cbae300594d0ccfd0c464627" },
+  "mini.nvim": { "branch": "main", "commit": "b5645ac6eefce8e7af9d7dd4e5e296a81cba8a10" },
+  "nvim-surround": { "branch": "main", "commit": "0855a89e00a5822c3a482a82e5223fcf2e9ede13" },
+  "substitute.nvim": { "branch": "main", "commit": "17ffaeb5a1dc2dbef39cf0865d8a4b6000836714" },
+  "vim-textobj-chunk": { "branch": "master", "commit": "c5b444671098c50abe875c6f00846d59a94b107d" },
+  "vim-textobj-entire": { "branch": "master", "commit": "64a856c9dff3425ed8a863b9ec0a21dbaee6fb3a" },
+  "vim-textobj-indent": { "branch": "master", "commit": "deb76867c302f933c8f21753806cbf2d8461b548" },
+  "vim-textobj-jsxattr": { "branch": "master", "commit": "98a8f1953e95df339661d37ab95c2767eb785668" },
+  "vim-textobj-line": { "branch": "master", "commit": "1a6780d29adcf7e464e8ddbcd0be0a9df1a37339" },
+  "vim-textobj-user": { "branch": "master", "commit": "41a675ddbeefd6a93664a4dc52f302fe3086a933" },
+  "vim-textobj-variable-segment": { "branch": "main", "commit": "51c323dca5c44f7a8e5a689b9156ef818d02188e" },
+  "vim-unimpaired": { "branch": "master", "commit": "6d44a6dc2ec34607c41ec78acf81657248580bf1" },
+  "yanky.nvim": { "branch": "main", "commit": "9268018e92d02650a94e39dd5f5903c542f7ea11" }
 }
