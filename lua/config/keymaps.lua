@@ -12,9 +12,15 @@ if vim.g.vscode then
 
   local twelve_lines_up = "13kzz"
   vim.keymap.set({ "n", "x" }, "<C-u>", twelve_lines_up)
-  -- better up/down
-  vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-  vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+  -- better up/down (wrapped line 을 반영하여 움직이도록 합니다.)
+  -- @link: https://github.com/vscode-neovim/vscode-neovim/blob/eb33ddd6c8794f1eeabe5b5e3ef7eba8619b60c7/vim/vscode-motion.vim#L14-L16
+  vim.keymap.set({ "n", "x" }, 'k', function()
+    vim.cmd("call VSCodeNotify('cursorMove', {'to': 'up', 'by': 'wrappedLine', 'value': " .. vim.v.count1 .. "})")
+  end, { silent = true })
+
+  vim.keymap.set({ "n", "x" }, 'j', function()
+    vim.cmd("call VSCodeNotify('cursorMove', {'to': 'down', 'by': 'wrappedLine', 'value': " .. vim.v.count1 .. "})")
+  end, { silent = true })
 else
   -- -- ------------------------- neovim specific config ----------------------------
 end
