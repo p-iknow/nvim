@@ -1,7 +1,12 @@
 -- ------------------------- vscode specific config ----------------------------
 if vim.g.vscode then
   -- selection 한 뒤 paste 할 때 selection 내용이 register 에 yank 되지 않도록 변경
-  vim.keymap.set("x", "p", "P", { silent = true })
+  vim.keymap.set({ "n", "x" }, "p", "P", { silent = true })
+
+  -- 라인 가장 앞쪽으로 이동
+  vim.keymap.set({ "n", "x" }, "<C-h>", "^", { silent = true })
+  -- 라인 가장 끝으로 이동
+  vim.keymap.set({ "n", "x" }, "<C-l>", "$", { silent = true })
 
   -- 새로운 라인을 만들기
   local make_new_line_under = "o<Esc>"
