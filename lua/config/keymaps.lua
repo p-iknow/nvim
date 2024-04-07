@@ -1,5 +1,8 @@
 -- ------------------------- vscode specific config ----------------------------
 if vim.g.vscode then
+  -- selection 한 뒤 paste 할 때 selection 내용이 register 에 yank 되지 않도록 변경
+  vim.keymap.set("x", "p", "P", { silent = true })
+
   -- 새로운 라인을 만들기
   local make_new_line_under = "o<Esc>"
   vim.keymap.set("n", "oo", make_new_line_under)
@@ -14,11 +17,11 @@ if vim.g.vscode then
   vim.keymap.set({ "n", "x" }, "<C-u>", twelve_lines_up)
   -- better up/down (wrapped line 을 반영하여 움직이도록 합니다.)
   -- @link: https://github.com/vscode-neovim/vscode-neovim/blob/eb33ddd6c8794f1eeabe5b5e3ef7eba8619b60c7/vim/vscode-motion.vim#L14-L16
-  vim.keymap.set({ "n", "x" }, 'k', function()
+  vim.keymap.set({ "n" }, 'k', function()
     vim.cmd("call VSCodeNotify('cursorMove', {'to': 'up', 'by': 'wrappedLine', 'value': " .. vim.v.count1 .. "})")
   end, { silent = true })
 
-  vim.keymap.set({ "n", "x" }, 'j', function()
+  vim.keymap.set({ "n" }, 'j', function()
     vim.cmd("call VSCodeNotify('cursorMove', {'to': 'down', 'by': 'wrappedLine', 'value': " .. vim.v.count1 .. "})")
   end, { silent = true })
 else
