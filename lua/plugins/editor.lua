@@ -14,5 +14,4 @@ return {
 	-- },
 	-- https://github.com/tpope/vim-unimpaired
 	{ "tpope/vim-unimpaired", vscode = true },
-	-- { "max397574/better-escape.nvim", opts = { mapping = { "jk", "kj" } }, vscode = true },
 }
