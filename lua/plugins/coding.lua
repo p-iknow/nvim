@@ -1,8 +1,24 @@
 return {
 	-- for vscode
-	-- motion plugin, lightspeed
-	-- https://github.com/ggandor/lightspeed.nvim
-	--'ggandor/lightspeed.nvim', -- s(forward), S(backward)
+
+	-- leap motion
+	-- https://github.com/ggandor/leap.nvim
+	{
+		"ggandor/leap.nvim", -- Jump to any line in a file
+		config = function()
+			require("leap").add_default_mappings()
+		end,
+		dependencies = { "tpope/vim-repeat" },
+		vscode = true,
+	},
+
+	-- https://github.com/vscode-neovim/vscode-multi-cursor.nvim?tab=readme-ov-file
+	{
+		'vscode-neovim/vscode-multi-cursor.nvim',
+		event = 'VeryLazy',
+		cond = not not vim.g.vscode,
+		opts = {},
+	},
 
 	-- surround
 	-- https://github.com/kylechui/nvim-surround
@@ -70,8 +86,12 @@ return {
 			--https://github.com/inside/vim-textobj-jsxattr
 			{ "inside/vim-textobj-jsxattr",          vscode = true }, -- x - attribute
 			{ "Julian/vim-textobj-variable-segment", vscode = true }, -- v - segment
+			-- https://github.com/kana/vim-textobj-indent
 			{ "kana/vim-textobj-indent",             vscode = true }, -- i - indent block, I - same indent (wont select sub indent, vscode = true}
+			-- https://github.com/Chun-Yang/vim-textobj-chunk
 			{ "MRAAGH/vim-textobj-chunk",            vscode = true }, -- lines that contain {},(, vscode = true},[] block. Use to select functions.
+			-- https://github.com/preservim/vim-textobj-quote?tab=readme-ov-file
+			{ "beloglazov/vim-textobj-quotes",       vscode = true }
 		},
 		vscode = true,
 	},
