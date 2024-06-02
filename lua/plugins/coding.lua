@@ -11,15 +11,6 @@ return {
 		dependencies = { "tpope/vim-repeat" },
 		vscode = true,
 	},
-
-	-- https://github.com/vscode-neovim/vscode-multi-cursor.nvim?tab=readme-ov-file
-	{
-		'vscode-neovim/vscode-multi-cursor.nvim',
-		event = 'VeryLazy',
-		cond = not not vim.g.vscode,
-		opts = {},
-	},
-
 	-- surround
 	-- https://github.com/kylechui/nvim-surround
 	{ "kylechui/nvim-surround",         config = true, vscode = true },
