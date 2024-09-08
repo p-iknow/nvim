@@ -11,6 +11,8 @@ vim.opt.linebreak = true                   -- if text should be wrapped at certa
 vim.opt.clipboard:append { 'unnamedplus' } -- copy to system clipboard
 vim.opt.encoding = 'utf-8'
 
+-- 2024.09.09 기준 nvim nightly에서는 문제가 해결됬다고 하니 살펴보고 아래 설정 삭제할지 결정
+-- https://github.com/ggandor/leap.nvim/issues/27#issuecomment-2094752976
 -- vim leap 플러그인 이슈를 해결하기 위한 세팅
 -- https://github.com/ggandor/leap.nvim/issues/27#issuecomment-1445046929
 vim.api.nvim_set_hl(0, 'Cursor', { reverse = true })
