@@ -78,7 +78,7 @@ return {
 			{ "inside/vim-textobj-jsxattr",          vscode = true }, -- x - attribute
 			{ "Julian/vim-textobj-variable-segment", vscode = true }, -- v - segment
 			-- https://github.com/kana/vim-textobj-indent
-			{ "kana/vim-textobj-indent",             vscode = true }, -- i - indent block, I - same indent (wont select sub indent, vscode = true}
+			-- { "kana/vim-textobj-indent",             vscode = true }, -- i - indent block, I - same indent (wont select sub indent, vscode = true}
 			-- https://github.com/Chun-Yang/vim-textobj-chunk
 			{ "MRAAGH/vim-textobj-chunk",            vscode = true }, -- lines that contain {},(, vscode = true},[] block. Use to select functions.
 			-- https://github.com/preservim/vim-textobj-quote?tab=readme-ov-file
