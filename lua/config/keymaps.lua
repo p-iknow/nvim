@@ -1,10 +1,32 @@
 -- ------------------------- vscode specific config ----------------------------
 if vim.g.vscode then
-  -- selection 한 뒤 paste 할 때 selection 내용이 register 에 yank 되지 않도록 변경
+  local vscode = require('vscode')
+  -- <C-d> 가 어떤 모드에서도 동일하게 동작하도록 설정하기
+  -- https://github.com/vscode-neovim/vscode-neovim?tab=readme-ov-file#vscodewith_insertcallback
+  vim.keymap.set({ "n", "x", "i" }, "<D-d>", function()
+    vscode.with_insert(function()
+      vscode.action("editor.action.addSelectionToNextFindMatch")
+    end)
+  end)
+
+  -- <C-d> 가 어떤 모드에서도 동일하게 동작하도록 설정하기
+  -- https://github.com/vscode-neovim/vscode-neovim?tab=readme-ov-file#vscodewith_insertcallback
+  vim.keymap.set({ "n", "x" }, "<leader>t", function()
+    vscode.with_insert(function()
+      vscode.action("surround.with")
+    end)
+  end)
+
+  -- <C-r> 리펙토링 커멘드가 cursor 의 내용을 온전히 반영하도록 설정
+  vim.keymap.set({ "n", "x" }, "<leader>r", function()
+    vscode.with_insert(function()
+      vscode.action("editor.action.refactor")
+    end)
+  end)
   vim.keymap.set({ "n", "x" }, "p", "P", { silent = true })
 
   -- 라인 삭제 한 내용이 register 에 등록되지 않도록 변경
-  vim.keymap.set({ "n" }, "dd", [["_dd]], { silent = true })
+  -- vim.keymap.set({ "n" }, "dd", [["_dd]], { silent = true })
   -- [["_dd]] 설명 및 아래 두 설정의 차이점:
   -- vim.keymap.set({ "n" }, "dd", "_dd", { silent = true })
   -- vim.keymap.set({ "n" }, "dd", [["_dd]], { silent = true })
