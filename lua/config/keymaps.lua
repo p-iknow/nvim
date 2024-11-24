@@ -18,7 +18,7 @@ if vim.g.vscode then
   end)
 
   -- <C-r> 리펙토링 커멘드가 cursor 의 내용을 온전히 반영하도록 설정
-  vim.keymap.set({ "n", "x" }, "<leader>r", function()
+  vim.keymap.set({ "n", "x" }, "<D-r>", function()
     vscode.with_insert(function()
       vscode.action("editor.action.refactor")
     end)

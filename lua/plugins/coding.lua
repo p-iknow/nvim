@@ -3,14 +3,14 @@ return {
 
 	-- leap motion
 	-- https://github.com/ggandor/leap.nvim
-	{
-		"ggandor/leap.nvim", -- Jump to any line in a file
-		config = function()
-			require("leap").add_default_mappings()
-		end,
-		dependencies = { "tpope/vim-repeat" },
-		vscode = true,
-	},
+	-- {
+	-- 	"ggandor/leap.nvim", -- Jump to any line in a file
+	-- 	config = function()
+	-- 		require("leap").add_default_mappings()
+	-- 	end,
+	-- 	dependencies = { "tpope/vim-repeat" },
+	-- 	vscode = true,
+	-- },
 	-- surround
 	-- https://github.com/kylechui/nvim-surround
 	{ "kylechui/nvim-surround",         config = true, vscode = true },
